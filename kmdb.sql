@@ -102,6 +102,34 @@
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
 
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS cast;
+DROP TABLE IF EXISTS studio;
+
+-- Create new tables, according to your domain model
+-- TODO!
+
+CREATE TABLE movie (
+movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
+movie TEXT,
+year INTEGER,
+rating TEXT,
+studio_id INTEGER
+);
+
+CREATE TABLE cast (
+cast_id INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT,
+character TEXT
+);
+
+CREATE TABLE studio (
+studio_id INTEGER PRIMARY KEY AUTOINCREMENT,
+studio TEXT
+);
+
+
+
 -- Create new tables, according to your domain model
 -- TODO!
 
