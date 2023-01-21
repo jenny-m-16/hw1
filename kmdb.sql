@@ -104,38 +104,60 @@
 
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS cast;
-DROP TABLE IF EXISTS studio;
+DROP TABLE IF EXISTS studios;
 
 -- Create new tables, according to your domain model
 -- TODO!
 
-CREATE TABLE movie (
-movie_id INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE movies (
+movies_id INTEGER PRIMARY KEY AUTOINCREMENT,
 movie TEXT,
 year INTEGER,
 rating TEXT,
 studio_id INTEGER
 );
 
+
 CREATE TABLE cast (
 cast_id INTEGER PRIMARY KEY AUTOINCREMENT,
-name TEXT,
-character TEXT
+actor TEXT,
+character TEXT,
+movies_id INTEGER
 );
 
-CREATE TABLE studio (
-studio_id INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE studios (
+studios_id INTEGER PRIMARY KEY AUTOINCREMENT,
 studio TEXT
 );
-
-
-
--- Create new tables, according to your domain model
--- TODO!
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+
+INSERT INTO movies (movie, year, rating, studio_id)
+VALUES ("Batman Begins", 2005, "PG-13", 1),
+("The Dark Knight", 2008, "PG-13", 1),
+("The Dark Night Rises", 2012, "PG-13", 1);
+
+INSERT INTO cast (actor, character, movies_id)
+VALUES ("Christian Bale","Bruce Wayne",1),
+("Michael Caine","Alfred",1),
+("Liam Neeson","Ra's Al Ghul",1),
+("Katie Holmes","Rachel Dawes",1),
+("Gary Oldman","Commissioner Gordon",1),
+("Christian Bale","Bruce Wayne",2),
+("Heath Ledger","Joker",2),
+("Aaron Eckhart","Harvey Dent",2),
+("Michael Caine","Alfred",2),
+("Maggie Gyllenhaal","Rachel Dawes",2),
+("Christian Bale","Bruce Wayne",3),
+("Gary Oldman","Commissioner Gordon",3),
+("Tom Hardy","Bane",3),
+("Joseph Gordon-Levitt","John Blake",3),
+("Anne Hathaway","Selina Kyle",3);
+
+INSERT INTO studios (studio)
+VALUES ("Warner Bros.");
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -144,6 +166,10 @@ studio TEXT
 
 -- The SQL statement for the movies output
 -- TODO!
+SELECT movies.movie, movies.year, movies.rating, studios.studio 
+FROM movies
+INNER JOIN studios
+ON movies.studio_id = studios.studios_id;
 
 -- Prints a header for the cast output
 .print ""
@@ -151,6 +177,10 @@ studio TEXT
 .print "========"
 .print ""
 
-
 -- The SQL statement for the cast output
 -- TODO!
+
+SELECT movie, actor, character 
+FROM movies
+INNER JOIN cast
+USING(movies_id);
